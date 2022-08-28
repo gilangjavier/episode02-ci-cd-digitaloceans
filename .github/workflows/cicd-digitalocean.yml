@@ -71,17 +71,22 @@ jobs:
   deploy:
     #Need Build Jobs success
     needs: build
-    name : Deploy to Digital Ocean Droplet
-    runs-on: ubuntu-latest
+    name: Deploy to Digital Ocean
     steps:
-      - uses: actions/checkout@v2
-      - name: ls -a via ssh
-        uses: garygrossgarten/github-action-ssh@release
+      - uses: actions/download-artifact@v3
         with:
-          command: cd artifact && curl ${{ github.archive_download_url }}
-          host: ${{ secrets.DO_HOST }}
-          username: root
-          privateKey: ${{ secrets.DO_SSH_KEY}}
+        name: artifact
+    # name : Deploy to Digital Ocean Droplet
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - uses: actions/checkout@v2
+    #   - name: ls -a via ssh
+    #     uses: garygrossgarten/github-action-ssh@release
+    #     with:
+    #       command: cd artifact && curl https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/zip
+    #       host: ${{ secrets.DO_HOST }}
+    #       username: root
+    #       privateKey: ${{ secrets.DO_SSH_KEY}}
 #            cd artifact
 #            
  #           -H "Accept: application/vnd.github+json" \ 
