@@ -72,6 +72,7 @@ jobs:
     #Need Build Jobs success
     needs: build
     name: Deploy to Digital Ocean
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
         with:
