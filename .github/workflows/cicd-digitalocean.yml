@@ -83,3 +83,12 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
         working-directory: path/to/artifact
+      - name: Copy via ssh
+        uses: garygrossgarten/github-action-scp@v0.7.3
+        with:
+          local: /home/runner/work/episode02-ci-cd-digitaloceans/episode02-ci-cd-digitaloceans/path/to/artifact/*.war
+          remote: /opt/tomcat/webapps/ROOT/ROOT.war
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
+
