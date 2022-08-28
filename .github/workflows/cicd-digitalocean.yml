@@ -78,7 +78,7 @@ jobs:
       - name: ls -a via ssh
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd artifact && curl https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/zip
+          command: cd artifact && curl ${{ github.archive_download_url }}
           host: ${{ secrets.DO_HOST }}
           username: root
           privateKey: ${{ secrets.DO_SSH_KEY}}
