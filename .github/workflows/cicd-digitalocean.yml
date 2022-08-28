@@ -7,45 +7,45 @@ on:
     branches:
       - main
 jobs:
-  # #Test's job
-  # tests:
-  #   name: Unit tests
-  #   #Run on Ubuntu using the latest version
-  #   runs-on: ubuntu-latest
-  #   #Job's step
-  #   steps:
-  #     #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
-  #     - uses: actions/checkout@v1
-  #     #Set up JDK 11
-  #     - name: Set up JDK
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '17'
-  #     #Run Tests
-  #     - name: Run Tests
-  #       run: mvn -B test
-  # #We using SonarCloud.io for Catch bug and code Error
-  # sonar:
-  #   #Need tests jobs
-  #   needs: tests
-  #   name: SonarCloud Code Analysis
-  #   runs-on: ubuntu-latest
-  #   #Job Step
-  #   steps:
-  #     #Checkout Repository
-  #     - uses: actions/checkout@v2
-  #     #Setup JDK
-  #     - name: Set up JDK
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '17'
-  #     #Analyze Code with SonarCloud
-  #     - name: Analyze With SonarCloud
-  #       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=gilangjavier_episode02-ci-cd-digitaloceans
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-   #build Stage
+   #Test's job
+  tests:
+    name: Unit tests
+     #Run on Ubuntu using the latest version
+    runs-on: ubuntu-latest
+    #Job's step
+    steps:
+      #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+      - uses: actions/checkout@v1
+      #Set up JDK 11
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+      #Run Tests
+      - name: Run Tests
+        run: mvn -B test
+   #We using SonarCloud.io for Catch bug and code Error
+  sonar:
+    #Need tests jobs
+    needs: tests
+    name: SonarCloud Code Analysis
+    runs-on: ubuntu-latest
+    #Job Step
+    steps:
+      #Checkout Repository
+      - uses: actions/checkout@v2
+      #Setup JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+      #Analyze Code with SonarCloud
+      - name: Analyze With SonarCloud
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=gilangjavier_episode02-ci-cd-digitaloceans
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #build Stage
   build:
     name: Build Artifact
   #   needs: sonar
@@ -77,11 +77,11 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: artifact
-      - run: curl -H "${{ JFROG_API_DEPLOY }}" -T *.war "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
+      - run: curl -H "${{ secrets.JFROG_API_DEPLOY }}" -T *.war "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
       - name: ls -a via ssh
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd artifact && curl -H "${{ JFROG_API_DEPLOY }}" -O "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
+          command: cd artifact && curl -H "${{ secrets.JFROG_API_DEPLOY }}" -O "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
           host: ${{ secrets.DO_HOST }}
           username: root
           privateKey: ${{ secrets.DO_SSH_KEY }}
