@@ -77,8 +77,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: artifact
-          run: echo "${{ secrets.DO_SSH_KEY }}" >> keyssh && chmod +x keyssh && ls -a && scp -i keyssh *.war root@206.189.159.228:/root/artifact/ROOT.war
-      - uses: actions/checkout@v2
+      - run: echo "${{ secrets.DO_SSH_KEY }}" >> keyssh && chmod +x keyssh && ls -a && scp -i keyssh *.war root@206.189.159.228:/root/artifact/ROOT.war
       - name: ls -a via ssh
         uses: garygrossgarten/github-action-ssh@release
         with:
