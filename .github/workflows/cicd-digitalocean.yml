@@ -75,12 +75,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: copy file via ssh key
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DO_HOST }}
-          username: ${{ secrets.DO_USERNAME }}
-          port: ${{ secrets.DO_PORT }}
-          key: ${{ secrets.DO_SSH_KEY }}
-          source: "target/*.war"
-          target: "/tmp/"
+      - name: multiple command
+        uses: appleboy/ssh-action@master
+          with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+          cd artifact
+          curl \
+          -H "Accept: application/vnd.github+json" \ 
+          -H "Authorization: token <TOKEN>" \
+          https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/ARCHIVE_FORMAT
