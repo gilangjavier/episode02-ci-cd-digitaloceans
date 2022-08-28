@@ -46,28 +46,28 @@ jobs:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
    #build Stage
-   build:
-     name: Build Artifact
+  build:
+    name: Build Artifact
   #   needs: sonar
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v2
-       - name: Setup JDK
-         uses: actions/setup-java@v1
-         with:
-           java-version: '17'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
     #Build Application Using Maven
-       - name: Build with maven
-         run: mvn -B package -DskipTests --file pom.xml
+      - name: Build with maven
+        run: mvn -B package -DskipTests --file pom.xml
        #BUILD THE ARTIFACT
-       - name: Upload War Artifact
+      - name: Upload War Artifact
          #This upload our artifacts from workflow allowing to share data between jobs and store data once a workflow is complete.
-         uses: actions/upload-artifact@v2
-         with:
+        uses: actions/upload-artifact@v2
+        with:
            #set artifact name
-           name: artifact
+          name: artifact
            #From:
-           path: target/*.war
+          path: target/*.war
   deploy:
     #Need Build Jobs success
     #needs: build
