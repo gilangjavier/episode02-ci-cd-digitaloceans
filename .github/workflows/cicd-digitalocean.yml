@@ -86,7 +86,7 @@ jobs:
           username: root
           privateKey: ${{ secrets.DO_SSH_KEY}}
       - name: Copy Artifact
-        run: scp -i ~/.ssh/id_rsa.pub *.war root@206.189.159.228:/root/artifact/ 
+        run: scp ${{ secrets.DO_SSH_KEY}} *.war root@206.189.159.228:/root/artifact/ 
     # name : Deploy to Digital Ocean Droplet
     # runs-on: ubuntu-latest
     # steps:
