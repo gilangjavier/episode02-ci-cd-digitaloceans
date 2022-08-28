@@ -70,7 +70,7 @@ jobs:
   #         path: target/*.war
   deploy:
     #Need Build Jobs success
-    needs: build
+    #needs: build
     name : Deploy to Digital Ocean Droplet
     runs-on: ubuntu-latest
     steps:
