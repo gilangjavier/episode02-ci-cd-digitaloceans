@@ -45,29 +45,29 @@ jobs:
   #       env:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  # #build Stage
-  # build:
-  #   name: Build Artifact
+   #build Stage
+   build:
+     name: Build Artifact
   #   needs: sonar
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Setup JDK
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '17'
-  #   #Build Application Using Maven
-  #     - name: Build with maven
-  #       run: mvn -B package -DskipTests --file pom.xml
-  #     #BUILD THE ARTIFACT
-  #     - name: Upload War Artifact
-  #       #This upload our artifacts from workflow allowing to share data between jobs and store data once a workflow is complete.
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         #set artifact name
-  #         name: artifact
-  #         #From:
-  #         path: target/*.war
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+       - name: Setup JDK
+         uses: actions/setup-java@v1
+         with:
+           java-version: '17'
+    #Build Application Using Maven
+       - name: Build with maven
+         run: mvn -B package -DskipTests --file pom.xml
+       #BUILD THE ARTIFACT
+       - name: Upload War Artifact
+         #This upload our artifacts from workflow allowing to share data between jobs and store data once a workflow is complete.
+         uses: actions/upload-artifact@v2
+         with:
+           #set artifact name
+           name: artifact
+           #From:
+           path: target/*.war
   deploy:
     #Need Build Jobs success
     #needs: build
@@ -78,7 +78,7 @@ jobs:
       - name: ls -a via ssh
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd artifact && curl https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/ARCHIVE_FORMAT
+          command: cd artifact && curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/ARCHIVE_FORMAT
           host: ${{ secrets.DO_HOST }}
           username: root
           privateKey: ${{ secrets.DO_SSH_KEY}}
