@@ -83,8 +83,8 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-          cd artifact
-          curl \
-          -H "Accept: application/vnd.github+json" \ 
-          -H "Authorization: token <TOKEN>" \
-          https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/ARCHIVE_FORMAT
+            cd artifact
+            curl \
+            -H "Accept: application/vnd.github+json" \ 
+            -H "Authorization: token <TOKEN>" \
+            https://api.github.com/repos/gilangjavier/episode02-ci-cd-digitalocean/actions/artifacts/ARTIFACT_ID/ARCHIVE_FORMAT
