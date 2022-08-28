@@ -73,13 +73,13 @@ jobs:
     needs: build
     name : Deploy to Digital Ocean Droplet
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Download Artifact
-          uses: actions/download-artifact@v3
-          with:
-            name: artifact
-            path: path/to/artifact
-        - name: Display structure of downloaded files
-          run: ls -R
-          working-directory: path/to/artifact
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: path/to/artifact
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: path/to/artifact
