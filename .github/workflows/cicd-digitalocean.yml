@@ -77,11 +77,11 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: artifact
-      - run: curl -H "X-JFrog-Art-Api:AKCp8nG6L8awFC9x3eXG96ceKJ4VrrJPX7NSu9wedKRecyAm8tayLNEqh1sk8BYuX1A8oSsTc" -T *.war "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
+      - run: curl -H "${{ JFROG_API_DEPLOY }}" -T *.war "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
       - name: ls -a via ssh
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: cd artifact && curl -H "X-JFrog-Art-Api:AKCp8nG6L8awFC9x3eXG96ceKJ4VrrJPX7NSu9wedKRecyAm8tayLNEqh1sk8BYuX1A8oSsTc" -O "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
+          command: cd artifact && curl -H "${{ JFROG_API_DEPLOY }}" -O "https://artifactrepo02.jfrog.io/artifactory/example-repo-local/ROOT.war"
           host: ${{ secrets.DO_HOST }}
           username: root
           privateKey: ${{ secrets.DO_SSH_KEY }}
