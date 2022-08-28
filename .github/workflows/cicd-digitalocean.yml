@@ -77,7 +77,8 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: artifact
-          run: ls -R
+      - name: List All
+         run: ls -R
     # name : Deploy to Digital Ocean Droplet
     # runs-on: ubuntu-latest
     # steps:
