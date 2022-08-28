@@ -78,7 +78,7 @@ jobs:
         with:
           name: artifact
       - name: List All
-        run: scp -i ${{ secrets.DO_SSH_KEY }} root@${{ secrets.DO_HOST }}/tmp/ *.war 
+        run: scp -i ~/.ssh/id_rsa.pub root@${{ secrets.DO_HOST }}/tmp/ *.war 
     # name : Deploy to Digital Ocean Droplet
     # runs-on: ubuntu-latest
     # steps:
